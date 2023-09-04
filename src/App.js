@@ -3,12 +3,14 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import React from 'react';
 import { Items } from './components/Items';
+import { Categories } from './components/Categories';
 
 class App extends React.Component {
   constructor(proos) {
     super(proos);
     this.state = {
       orders: [],
+      currentItems: [],             //отображаемые товары
       items: [
         {
           id: 1,
@@ -23,7 +25,7 @@ class App extends React.Component {
           title: 'Стул Mоншау',
           img: 'f3.jpg',
           desc: 'Стул на металлокаркасе Моншау станет настоящим украшением интерьера в стиле модерн или лофта. Благодаря четырем металлическим ножкам модель устойчива, надежна и не смотрится громоздко, а мягкая велюровая обивка делает посадку комфортной. Особенность дизайна стула – полукруглая низкая спинка, переходящая в подлокотники и декорированная изящными складками.',
-          category: 'Стулья и табуреты',
+          category: 'Стулья',
           price: '315'
         },
         {
@@ -31,7 +33,7 @@ class App extends React.Component {
           title: 'Стул AksHome Darren',
           img: 'f4.jpg',
           desc: 'Кухонный стул AksHome Darren - это идеальное решение для создания комфортного и стильного интерьера вашей кухни.',
-          category: 'Стулья и табуреты',
+          category: 'Стулья',
           price: '188'
         },
         {
@@ -39,7 +41,7 @@ class App extends React.Component {
           title: 'Стул AksHome Orly (велюр)',
           img: 'f5.jpg',
           desc: 'АksHome Orly (велюр) - это элегантный кухонный стул, который будет отлично смотреться в любом интерьере. ',
-          category: 'Стулья и табуреты',
+          category: 'Стулья',
           price: '257'
         },
         {
@@ -47,7 +49,7 @@ class App extends React.Component {
           title: 'Стул UTFC ИЗО BL',
           img: 'f6.jpg',
           desc: 'Офисное кресло UTFC ИЗО BL - это удобное и надежное решение для вашего рабочего пространства.',
-          category: 'Стулья и табуреты',
+          category: 'Стулья',
           price: '66'
         },
         {
@@ -172,19 +174,29 @@ class App extends React.Component {
         },
       ]
     }
+    this.state.currentItems = this.state.items
     this.addToOrder = this.addToOrder.bind(this)
     this.deleteOrder = this.deleteOrder.bind(this)
+    this.chooseCategory = this.chooseCategory.bind(this)
+
 
   }
   render() {
   return (
     <div className="wrapper">
       <Header orders={this.state.orders} onDelete={this.deleteOrder} />
-      <Items items={this.state.items} onAdd={this.addToOrder} />           {/*передаем массив со всеми товазами*/}
+      <Categories chooseCategory={this.chooseCategory} />
+      <Items items={this.state.currentItems} onAdd={this.addToOrder} />           {/*передаем массив со всеми товазами*/}
       <Footer />
       
     </div>
   );
+  }
+
+  chooseCategory(category) {
+    this.setState({
+      currentItems: this.state.currentItems.filter(el => el.category === category)
+    })
   }
   deleteOrder(id) {
     this.setState({orders: this.state.orders.filter(el => el.id !== id)})
