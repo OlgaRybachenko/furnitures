@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaCartPlus } from "react-icons/fa6";
 
 const Header = () => {
+  let [cartOpen, setCartOpen] = useState(false)
   return (
     <header>
       <div>
@@ -10,6 +12,12 @@ const Header = () => {
           <li>Контакты</li>
           <li> Кабинет</li>
         </ul>
+        <FaCartPlus onClick={() => setCartOpen(cartOpen = !cartOpen)} className={`shop-cart-button ${cartOpen && 'active'}`} />
+        {cartOpen && (
+          <div className='shop-cart'>
+            
+          </div>
+        )}
       </div>
       <div className='presentation'></div>
     </header>
