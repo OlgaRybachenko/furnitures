@@ -29,11 +29,6 @@ const Header = (props) => {
     <header>
       <div>
         <span className='logo'>House Staff</span>
-        <ul className='nav'>
-          <li> Про нас</li>
-          <li>Контакты</li>
-          <li> Кабинет</li>
-        </ul>
         <FaCartPlus onClick={() => setCartOpen(cartOpen = !cartOpen)} className={`shop-cart-button ${cartOpen && 'active'}`} />
         {cartOpen && (
           <div className='shop-cart'>
